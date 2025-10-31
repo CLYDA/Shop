@@ -19,6 +19,7 @@ class Category(models.Model):
 class ProductFeature(models.Model):
     name = models.CharField(max_length=255, verbose_name='نام ویژگی ')
     value = models.CharField(max_length=255, verbose_name='مقدار ویژگی ')
+    product = models.ForeignKey('Product', related_name='features', on_delete=models.CASCADE , verbose_name='محصول ')   
 
     def __str__(self):
         return f"{self.name}: {self.value}"
@@ -33,7 +34,6 @@ class Product(models.Model):
     adventory = models.PositiveIntegerField(verbose_name='موجودی ', default =0)
     off = models.PositiveIntegerField(verbose_name='تخفیف ', default =0)
     new_price = models.PositiveIntegerField(verbose_name='قیمت جدید ', default =0)
-    productfeature = models.ManyToManyField(ProductFeature, blank=True, related_name='f_products', verbose_name='ویژگی های محصول ')
     created = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد ')
     updated = models.DateTimeField(auto_now=True, verbose_name='تاریخ بروزرسانی ')
     
