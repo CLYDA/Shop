@@ -36,6 +36,20 @@ class Product(models.Model):
     productfeature = models.ManyToManyField(ProductFeature, blank=True, related_name='f_products', verbose_name='ویژگی های محصول ')
     created = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد ')
     updated = models.DateTimeField(auto_now=True, verbose_name='تاریخ بروزرسانی ')
+    
+    class Meta:
+        ordering = ['-created']
+        indexes = [
+            models.Index(fields=['id', 'slug']),
+            models.Index(fields=['name']),
+            models.Index(fields=['-created']),
+        ]
+        verbose_name = 'محصول'
+        verbose_name_plural = 'محصولات'
+
+
+    def __str__(self):
+        return self.name
 
 
 
@@ -46,10 +60,11 @@ class Image(models.Model):
     description = models.TextField(verbose_name="توضیحات", null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
+
     class Meta:
         ordering = ['-created']
         indexes = [
-            models.Index(fields=['-created'])
+            models.Index(fields=['-created']),
         ]
         verbose_name = "تصویر"
         verbose_name_plural = "تصویر ها"
