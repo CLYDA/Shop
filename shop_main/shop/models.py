@@ -31,7 +31,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=255, verbose_name='اسلاگ ')
     description = models.TextField(max_length=3500, blank=True, verbose_name='توضیحات ')
     price = models.PositiveIntegerField( default =0, verbose_name='قیمت ')
-    adventory = models.PositiveIntegerField(verbose_name='موجودی ', default =0)
+    inventory = models.PositiveIntegerField(verbose_name='موجودی ', default =0)
     off = models.PositiveIntegerField(verbose_name='تخفیف ', default =0)
     new_price = models.PositiveIntegerField(verbose_name='قیمت جدید ', default =0)
     created = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد ')
