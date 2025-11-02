@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -15,6 +16,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('shop:product_list_by_category', args=[self.slug])
+    
 
 class ProductFeature(models.Model):
     name = models.CharField(max_length=255, verbose_name='نام ویژگی ')
@@ -52,8 +56,12 @@ class Product(models.Model):
         return self.name
 
 
+    def get_absolute_url(self):
+        return reverse('shop:product_detail', args=[self.id,self.slug])
 
-class Image(models.Model):
+
+
+class Image(models.Model) :
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images", verbose_name="محصول")
     file = models.ImageField(upload_to="product_images/%Y/%m/%d/")
     title = models.CharField(max_length=250, verbose_name="عنوان", null=True, blank=True)
