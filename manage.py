@@ -6,7 +6,14 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'shop.settings')
+    # Make sure the inner `shop_main` package (shop_main/shop_main) is importable
+    # when running the top-level manage.py. This adds the `shop_main` directory
+    # to sys.path so `import shop_main.settings` works.
+    project_dir = os.path.join(os.path.dirname(__file__), 'shop_main')
+    if project_dir not in sys.path:
+        sys.path.insert(0, project_dir)
+
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'shop_main.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -20,3 +27,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+ 
