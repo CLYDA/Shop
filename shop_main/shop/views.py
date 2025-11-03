@@ -4,8 +4,8 @@ from .models import Product , Category
 
 def product_list(request, category_slug=None):
     category = None
-    categories = category.objects.all()
-    products = product.objects.all()
+    categories = Category.objects.all()
+    products = Product.objects.all()
     if category_slug:
         category = get_object_or_404(category, slug=category_slug)
         products = products.filter(category=category)
