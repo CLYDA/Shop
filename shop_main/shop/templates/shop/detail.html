@@ -11,6 +11,9 @@
     <div class="container" >
 
         <div class="product-detail" >
+            {% if phone %}
+                <p>شماره تلفن از سشن: {{ phone }}</p>
+            {% endif %}
             <h2>{{ product.name }}</h2>
             {% if product.images.all %}
                 {% for image in product.images.all %}
